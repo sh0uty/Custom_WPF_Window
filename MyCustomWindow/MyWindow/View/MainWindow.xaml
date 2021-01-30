@@ -5,10 +5,23 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MyCustomWindow.MyWindow.View"
         mc:Ignorable="d"
+        AllowsTransparency="True"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
 
+    <WindowChrome.WindowChrome>
+        <WindowChrome
+            ResizeBorderThickness="{Binding ResizeBorderThickness}"
+            CaptionHeight="{Binding TitleHeight, FallbackValue=40}"
+            CornerRadius="0"
+            GlassFrameThickness="0"
+            />
+    </WindowChrome.WindowChrome>
+
+    <Grid Background="Green">
+
+        
+        
     </Grid>
 </Window>
