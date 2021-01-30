@@ -12,7 +12,10 @@ namespace MyCustomWindow.MyWindow.ViewModel
         {
             mWindow = window;
 
-            PlaceHolder = new RelayCommand(x => { });
+            MinimizeCommand = new RelayCommand((param) => mWindow.WindowState = WindowState.Minimized);
+            MaximizeCommand = new RelayCommand((param) => mWindow.WindowState = WindowState.Maximized);
+            CloseCommand = new RelayCommand((param) => mWindow.Close());
+            MenuCommand = new RelayCommand((param) => SystemCommands.ShowSystemMenu(mWindow, GetMousePosition()));
         }
 
         #endregion
@@ -21,28 +24,57 @@ namespace MyCustomWindow.MyWindow.ViewModel
 
         private readonly Window mWindow;
 
-        private readonly int iResizeBorder = 6;
-
         private readonly int iOuterMargin = 10;
+
+        private int iWindowRadius = 10;
 
 
         #endregion
 
         #region Public Member
 
-        public Thickness ResizeBorderThickness { get => new Thickness(iResizeBorder + iOuterMargin); }
+        public double WindowMinWidth { get; set; } = 450;
+
+        public double WindowMinHeight { get; set; } = 800;
+
+        public int ResizeBorder { get; set; } = 6;
+
+        public int WindowRadius { get => iWindowRadius; set => iWindowRadius = value; }
+
+        public int TitleHeight { get; set; } = 40;
+
+        public Thickness ResizeBorderThickness { get => new Thickness(ResizeBorder + iOuterMargin); }
 
         public Thickness OuterMarginThickness { get => new Thickness(iOuterMargin); }
 
-        public Thickness InnerContent { get => new Thickness(iResizeBorder); }
+        public Thickness InnerContent { get => new Thickness(ResizeBorder); }
 
-        public int TitleHeight { get; set; } = 40;
+        public CornerRadius WindowCornerRadius { get => new CornerRadius(WindowRadius); }
+        
+        public GridLength TitleHeightGridLength { get => new GridLength(TitleHeight + ResizeBorder); }
 
         #endregion
 
         #region Command
 
-        public ICommand PlaceHolder { get; private set; }
+        public ICommand MinimizeCommand { get; private set; }
+        public ICommand MaximizeCommand { get; private set; }
+        public ICommand CloseCommand { get; private set; }
+        public ICommand MenuCommand { get; private set; }
+
+        #endregion
+
+
+        #region Private Helper
+
+        private Point GetMousePosition()
+        {
+
+            var Position = Mouse.GetPosition(mWindow);
+
+            return new Point(Position.X + mWindow.Left, Position.Y + mWindow.Top);
+
+        }
 
         #endregion
     }
