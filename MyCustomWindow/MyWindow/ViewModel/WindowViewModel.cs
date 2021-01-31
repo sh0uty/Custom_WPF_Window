@@ -5,7 +5,6 @@ namespace MyCustomWindow.MyWindow.ViewModel
 {
     public class WindowViewModel : BaseViewModel
     {
-
         #region Constructor
 
         public WindowViewModel(Window window)
@@ -18,7 +17,7 @@ namespace MyCustomWindow.MyWindow.ViewModel
             MenuCommand = new RelayCommand((param) => SystemCommands.ShowSystemMenu(mWindow, GetMousePosition()));
         }
 
-        #endregion
+        #endregion Constructor
 
         #region Private Member
 
@@ -28,8 +27,7 @@ namespace MyCustomWindow.MyWindow.ViewModel
 
         private int iWindowRadius = 10;
 
-
-        #endregion
+        #endregion Private Member
 
         #region Public Member
 
@@ -50,10 +48,10 @@ namespace MyCustomWindow.MyWindow.ViewModel
         public Thickness InnerContent { get => new Thickness(ResizeBorder); }
 
         public CornerRadius WindowCornerRadius { get => new CornerRadius(WindowRadius); }
-        
+
         public GridLength TitleHeightGridLength { get => new GridLength(TitleHeight + ResizeBorder); }
 
-        #endregion
+        #endregion Public Member
 
         #region Command
 
@@ -62,20 +60,17 @@ namespace MyCustomWindow.MyWindow.ViewModel
         public ICommand CloseCommand { get; private set; }
         public ICommand MenuCommand { get; private set; }
 
-        #endregion
-
+        #endregion Command
 
         #region Private Helper
 
         private Point GetMousePosition()
         {
-
             var Position = Mouse.GetPosition(mWindow);
 
             return new Point(Position.X + mWindow.Left, Position.Y + mWindow.Top);
-
         }
 
-        #endregion
+        #endregion Private Helper
     }
 }
